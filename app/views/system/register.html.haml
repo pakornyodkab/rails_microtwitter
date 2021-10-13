@@ -1,5 +1,8 @@
-%h1 Register
+.container
+	
+	%h1 Register
+	%p#alert.text-danger #{@alertword}
 
-=render 'registerform' ,user:@user
+	=render 'registerform' ,user:@user
 
 

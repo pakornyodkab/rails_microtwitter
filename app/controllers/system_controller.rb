@@ -58,19 +58,23 @@ class SystemController < ApplicationController
 
     password = u[:password]
     confirm_password = u[:confirm_password]
+    
+    @correctpass = true
 
-    correctpass = true
-
-    if(confirm_password != password)
-      correctpass = false
+    if(!confirm_password.eql?(password))
+      @correctpass = false
     end
 
+    @alertword = ""
+
     respond_to do |format|
-      if @user.save
+      if (@correctpass && @user.save )
         format.html { redirect_to main_path, notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :register, status: :unprocessable_entity }
+        @alertword = (@correctpass)? "" : "Password and confirm password are not equal"
+        @user.valid?
+        format.html { render :register, status: :unprocessable_entity  }
         format.json { render json: @user.errors, status: :unprocessable_entity } 
       end
     end

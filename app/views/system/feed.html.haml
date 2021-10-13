@@ -7,16 +7,20 @@
     %tr
       %th Followee name
       %th Message
+      %th Created Time
   %tbody
-    -puts "wow"
+    -post_all = []
     - @user.followers.each do |followers|
-      -puts "#{followers.followee_id}"
       - followee = User.find(followers.followee_id)
-      - followee_name = followee.name
+      -# followee_name = followee.name
       - followee.posts.each do |post|
-        %tr
-          %td= followee_name
-          %td= post.msg
+        -post_all.push(post) #followee post
+    
+    - post_all.sort_by{|e| e.created_at}.reverse.each do |post|
+      %tr
+        %td= post.user.name
+        %td= post.msg
+        %td= post.created_at
 
 =link_to 'New post' ,new_post_sys_path
             

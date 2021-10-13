@@ -7,7 +7,7 @@
       %th Msg
       %th Date , Time
   %tbody
-    - @user.posts.each do |post|
+    - @user.posts.sort_by{|e| e.created_at}.reverse.each do |post|
       %tr
         %td= post.msg
         %td= post.created_at
