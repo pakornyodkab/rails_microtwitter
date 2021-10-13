@@ -1,16 +1,23 @@
-%h1 System#feed
+%h1 My Feed
 
 
 %p Posts
 %table
   %thead
     %tr
-      %th Msg
-      %th Date , Time
+      %th Followee name
+      %th Message
   %tbody
-    - @user.posts.each do |post|
-      %tr
-        %td= post.msg
-        %td= post.created_at
-        %td= link_to 'Edit' ,edit_post_path(post)
-        %td= link_to 'Delete', post_path(post) ,method: :delete
+    -puts "wow"
+    - @user.followers.each do |followers|
+      -puts "#{followers.followee_id}"
+      - followee = User.find(followers.followee_id)
+      - followee_name = followee.name
+      - followee.posts.each do |post|
+        %tr
+          %td= followee_name
+          %td= post.msg
+
+=link_to 'New post' ,new_post_sys_path
+            
+      

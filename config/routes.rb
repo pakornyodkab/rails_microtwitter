@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post '/register' ,to: "system#create" ,as:"registerpost"
   get '/feed' ,to: "system#feed"
   get '/new_post' ,to: "system#new_post" ,as:"new_post_sys"
+  post '/new_post' ,to: "system#createpost" ,as:"new_post_sys_vpost"
   get '/profile/:name' ,to: "system#profile" ,as:"profile_sys"
   get '/main' ,to: "system#main" ,as:"main"
   post '/main' ,to: "system#userlogin"

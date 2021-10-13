@@ -12,6 +12,7 @@ class SystemController < ApplicationController
   end
 
   def new_post
+    @post = Post.new
   end
 
   def profile
@@ -82,9 +83,9 @@ class SystemController < ApplicationController
 
     respond_to do |format|
       if @follow.save
-        profile = User.find(followee_id)
-        profilename = profile.name
-        format.html { redirect_to profile_sys_path(profilename), notice: "Follow was successfully created." }
+        #profile = User.find(followee_id)
+        #profilename = profile.name
+        format.html { redirect_to feed_path, notice: "Follow was successfully created." }
         format.json { render :show, status: :created, location: @follow }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -93,17 +94,34 @@ class SystemController < ApplicationController
     end
   end
 
+  def createpost
+    post = post_params
+    msg = post[:msg]
+    user_id = session[:user_id]
+    @post = Post.new(msg:msg ,user_id:user_id)
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to feed_path, notice: "Post was successfully created." }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { render :new_post, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroyfollow
     follower_id = params[:follower_id]
     followee_id = params[:followee_id]
-    profile = User.find(followee_id)
-    profilename = profile.name
+    #profile = User.find(followee_id)
+    #profilename = profile.name
 
     @follow = Follow.find_by(follower_id:follower_id,followee_id:followee_id)
     @follow.destroy
 
     respond_to do |format|
-      format.html { redirect_to profile_sys_path(profilename), notice: "Follow was successfully destroyed." }
+      format.html { redirect_to feed_path, notice: "Follow was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -129,5 +147,9 @@ class SystemController < ApplicationController
           format.json { head :no_content }
         end
       end
+    end
+
+    def post_params
+      params.require(:post).permit(:msg)
     end
 end

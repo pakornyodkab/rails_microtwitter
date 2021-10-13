@@ -1,0 +1,14 @@
+= simple_form_for @post ,url:new_post_sys_vpost_url  do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    .row
+      .col-md-6.col-xs-12.mt-3
+        = f.input :msg ,required:true
+
+  .form-actions
+    .row
+      .col.mt-3.mb-3
+        =f.button :submit
+        =link_to 'Cancle' , feed_path
