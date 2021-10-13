@@ -11,3 +11,10 @@
       %tr
         %td= post.msg
         %td= post.created_at
+
+-# user who log in used to follow this person
+-if Follow.find_by(follower_id:session[:user_id],followee_id:@user.id) 
+  = link_to 'Unfollow' ,destroyfollow_sys_path(session[:user_id],@user.id)
+-else
+  = link_to 'Follow' ,createfollow_sys_path(session[:user_id],@user.id)
+

@@ -75,6 +75,39 @@ class SystemController < ApplicationController
     end
   end
 
+  def createfollow
+    follower_id = params[:follower_id]
+    followee_id = params[:followee_id]
+    @follow = Follow.new(follower_id:follower_id,followee_id:followee_id)
+
+    respond_to do |format|
+      if @follow.save
+        profile = User.find(followee_id)
+        profilename = profile.name
+        format.html { redirect_to profile_sys_path(profilename), notice: "Follow was successfully created." }
+        format.json { render :show, status: :created, location: @follow }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @follow.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroyfollow
+    follower_id = params[:follower_id]
+    followee_id = params[:followee_id]
+    profile = User.find(followee_id)
+    profilename = profile.name
+
+    @follow = Follow.find_by(follower_id:follower_id,followee_id:followee_id)
+    @follow.destroy
+
+    respond_to do |format|
+      format.html { redirect_to profile_sys_path(profilename), notice: "Follow was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
