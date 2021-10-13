@@ -1,0 +1,11 @@
+
+
+.container
+
+	%h1 Main page
+	%p#alert.text-danger= alert   
+
+	=render 'mainform' ,user:@user
+
+	=link_to 'Register' , register_path
+

@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  get 'system/register'
-  get 'system/feed'
-  get 'system/new_post'
-  get 'system/profile'
-  get 'system/main'
+  get '/register' ,to: "system#register" ,as:"register"
+  post '/register' ,to: "system#create" ,as:"registerpost"
+  get '/feed' ,to: "system#feed"
+  get '/new_post' ,to: "system#new_post" ,as:"new_post_sys"
+  get '/profile/:name' ,to: "system#profile"
+  get '/main' ,to: "system#main" ,as:"main"
+  post '/main' ,to: "system#userlogin"
+
   resources :follows
   resources :posts
   resources :users

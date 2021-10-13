@@ -1,2 +1,16 @@
 %h1 System#feed
-%p Find me in app/views/system/feed.html.haml
+
+
+%p Posts
+%table
+  %thead
+    %tr
+      %th Msg
+      %th Date , Time
+  %tbody
+    - @user.posts.each do |post|
+      %tr
+        %td= post.msg
+        %td= post.created_at
+        %td= link_to 'Edit' ,edit_post_path(post)
+        %td= link_to 'Delete', post_path(post) ,method: :delete
