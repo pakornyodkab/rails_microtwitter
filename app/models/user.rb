@@ -2,7 +2,7 @@ class User < ApplicationRecord
 	validates :name ,uniqueness:true ,presence:true
 	validates :email ,uniqueness:true ,presence:true
 	has_secure_password
-	validates:password ,presence:true
+	validates:password ,presence:true ,length: { in: 5..20 }
 	validates :name ,presence:true
 
 	has_many :posts

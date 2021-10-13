@@ -18,6 +18,15 @@ class SystemController < ApplicationController
   def profile
     user_name = params[:name]
     @user = User.find_by(name:user_name)
+
+    if (@user.nil?)
+      respond_to do |format|
+        format.html { redirect_to feed_path ,alert:"Profile name is wrong" }
+        format.json { head :no_content }
+      end
+    end
+
+
   end
 
   def main
