@@ -1,5 +1,5 @@
 class SystemController < ApplicationController
-  before_action :logged_in ,only: %i[feed new_post profile]
+  before_action :logged_in ,only: %i[feed new_post profile createfollow createpost destroyfollow]
 
   def register
     @user = User.new
