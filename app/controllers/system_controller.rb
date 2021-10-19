@@ -8,6 +8,7 @@ class SystemController < ApplicationController
   def feed
     user_id = session[:user_id]
     @user = User.find(user_id)
+    @post = @user.get_feed_post(user_id)
     
   end
 
