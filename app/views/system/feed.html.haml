@@ -8,12 +8,16 @@
       %th Followee name
       %th Message
       %th Created Time
+      %th 
+      %th like number
   %tbody
     - @post.each do |post|
       %tr
         %td= post.user.name
         %td= post.msg
         %td= post.created_at
+        %td= button_to "Like" , main_path,:class => "btn btn-primary", :method => :get 
+
 
 =link_to 'New post' ,new_post_sys_path
             
