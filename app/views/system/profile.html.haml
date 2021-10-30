@@ -6,11 +6,18 @@
     %tr
       %th Msg
       %th Date , Time
+      %th 
+      %th Like number
   %tbody
     - @user.posts.sort_by{|e| e.created_at}.reverse.each do |post|
       %tr
         %td= post.msg
         %td= post.created_at
+        -if (!Like.find_by(post_id:post.id , user_id:session[:user_id]))
+          %td= button_to "Like" , createlike_sys_path(post.id,session[:user_id]),:class => "btn btn-primary", :method => :get 
+        -else
+          %td= button_to "Unlike" , destroylike_sys_path(post.id,session[:user_id]),:class => "btn btn-primary", :method => :get
+        %td= render 'modal' ,count:post.likecount ,users_name:post.like_user,post_id:post.id
 
 -# user who log in used to follow this person
 -if Follow.find_by(follower_id:session[:user_id],followee_id:@user.id) 

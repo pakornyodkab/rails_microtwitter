@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :likes
   get '/register' ,to: "system#register" ,as:"register"
   post '/register' ,to: "system#create" ,as:"registerpost"
   get '/feed' ,to: "system#feed"
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
   post '/main' ,to: "system#userlogin"
   get 'createfollow/:follower_id/:followee_id' ,to: "system#createfollow" ,as: "createfollow_sys"
   get 'destroyfollow/:follower_id/:followee_id' ,to: "system#destroyfollow" ,as: "destroyfollow_sys"
+  get 'createlike/:post_id/:user_id' ,to: "system#createlike" ,as:"createlike_sys"
+  get 'destroylike/:post_id/:user_id' ,to: "system#destroylike" ,as:"destroylike_sys"
 
   resources :follows
   resources :posts

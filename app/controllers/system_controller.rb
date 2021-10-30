@@ -140,6 +140,33 @@ class SystemController < ApplicationController
     end
   end
 
+  def createlike
+    post_id = params[:post_id]
+    user_id = params[:user_id]
+    @like = Like.new(post_id:post_id ,user_id:user_id)
+
+    respond_to do |format|
+      if @like.save
+        format.html { redirect_to request.referrer, notice: "Like was successfully created." }
+        format.json { render :show, status: :created, location: @like }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @like.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroylike
+    post_id = params[:post_id]
+    user_id = params[:user_id]
+    @like = Like.find_by(post_id:post_id ,user_id:user_id)
+    @like.destroy
+    respond_to do |format|
+      format.html { redirect_to request.referrer, notice: "Like was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

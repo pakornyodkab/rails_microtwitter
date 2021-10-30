@@ -1,4 +1,4 @@
-%h1 My Feed
+%h1 Welcome #{@user.name}
 %p#alert.text-danger= alert   
 
 %p Posts
@@ -16,7 +16,12 @@
         %td= post.user.name
         %td= post.msg
         %td= post.created_at
-        %td= button_to "Like" , main_path,:class => "btn btn-primary", :method => :get 
+        -if (!Like.find_by(post_id:post.id , user_id:session[:user_id]))
+          %td= button_to "Like" , createlike_sys_path(post.id,session[:user_id]),:class => "btn btn-primary", :method => :get 
+        -else
+          %td= button_to "Unlike" , destroylike_sys_path(post.id,session[:user_id]),:class => "btn btn-primary", :method => :get
+        %td= render 'modal' ,count:post.likecount ,users_name:post.like_user,post_id:post.id
+
 
 
 =link_to 'New post' ,new_post_sys_path
