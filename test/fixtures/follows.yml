@@ -7,3 +7,7 @@ one:
 two:
   follower: two
   followee: two
+
+followtest:
+  follower: u1 #person who follow  u1 is q
+  followee: u2 #person who get followed  u2 is lebron

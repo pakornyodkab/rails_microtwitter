@@ -12,8 +12,8 @@
   %tbody
     - @follows.each do |follow|
       %tr
-        %td= follow.follower.id
-        %td= follow.followee.id
+        %td= follow.follower.name
+        %td= follow.followee.name
         %td= link_to 'Show', follow
         %td= link_to 'Edit', edit_follow_path(follow)
         %td= link_to 'Destroy', follow, method: :delete, data: { confirm: 'Are you sure?' }

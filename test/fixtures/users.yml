@@ -12,3 +12,8 @@ u1:
   email: bacon
   name: q
   password_digest: <%= BCrypt::Password.create('12345') %>
+
+u2:
+  email: james
+  name: lebron
+  password_digest: <%= BCrypt::Password.create('12345') %>

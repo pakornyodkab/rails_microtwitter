@@ -7,3 +7,7 @@ one:
 two:
   msg: MyString
   user: two
+
+post1:
+  msg: "test"
+  user: u2
