@@ -63,6 +63,10 @@ class MainsTest < ApplicationSystemTestCase
     assert_selector ".table > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(5) > button:nth-child(1)" ,text:"1" #copy from CSS selector
     visit "profile/#{@user2.name}"
     assert_selector ".table > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(4) > button:nth-child(1)" ,text:"1" #copy from CSS selector
+    find(".table > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(4) > button:nth-child(1)").click 
+    assert_text "q"
+    click_on "q"
+    assert_selector "h1" ,text:"q Profile"
 
   end
 
