@@ -45,12 +45,26 @@ class MainsTest < ApplicationSystemTestCase
     assert_text "test"
   end
 
+  test "profileshowpost" do
+    visit "/main"
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: 12345
+    click_button "Login"
+    visit "profile/#{@user2.name}"
+    assert_text "test"
+  end
+
   test "Likework" do
     visit "/main"
     fill_in "Email", with: @user.email
     fill_in "Password", with: 12345
     click_button "Login"
     click_on "Like" , match: :first
+    assert_selector ".table > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(5) > button:nth-child(1)" ,text:"1" #copy from CSS selector
+    visit "profile/#{@user2.name}"
+    assert_selector ".table > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(4) > button:nth-child(1)" ,text:"1" #copy from CSS selector
+
   end
+
 
 end
