@@ -40,6 +40,6 @@ class LikesTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Like was successfully destroyed"
+    
   end
 end
