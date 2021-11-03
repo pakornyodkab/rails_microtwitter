@@ -17,11 +17,48 @@
           %td= button_to "Like" , createlike_sys_path(post.id,session[:user_id]),:class => "btn btn-primary", :method => :get 
         -else
           %td= button_to "Unlike" , destroylike_sys_path(post.id,session[:user_id]),:class => "btn btn-primary", :method => :get
-        %td= render 'modal' ,count:post.likecount ,users_name:post.like_user,post_id:post.id
+        -#%td= render 'modal' ,count:post.likecount ,users_name:post.like_user,post_id:post.id
+        %td.button.btn.btn-light{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", :type => "button" ,class: "buttonshowlikename" ,data:post.like_user.join(',')} #{post.likecount}
+
+
+
+-#modal part
+
+.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :tabindex => "-1" ,id:"exampleModal"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title Like's name
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", :type => "button"  }
+      .modal-body
+        -#users_name.each do |user_name|
+        -#%p= link_to "#{user_name}" , profile_sys_path(user_name)
+        %p.likenamerow
+
+      .modal-footer
+
+
+-#follow button
 
 -# user who log in used to follow this person
 -if Follow.find_by(follower_id:session[:user_id],followee_id:@user.id) 
   = link_to 'Unfollow' ,destroyfollow_sys_path(session[:user_id],@user.id)
 -else
   = link_to 'Follow' ,createfollow_sys_path(session[:user_id],@user.id)
-  
+
+
+:javascript
+  $(".buttonshowlikename").click(function(){
+    $(".likenamerow").text("")
+    name = $(this).attr("data")
+    name_use = []
+    name_use = name.split(",")
+    console.log(name_use)
+    for (let i = 0; i < name_use.length; i++) {
+      var temp = document.createElement("a")
+      temp.href= "/profile/"+name_use[i]
+      temp.innerHTML = name_use[i]
+      $(".likenamerow").append(temp)
+      $(".likenamerow").append("<br>")
+    } 
+  })

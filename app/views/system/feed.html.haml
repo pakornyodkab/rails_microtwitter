@@ -20,8 +20,8 @@
           %td= button_to "Like" , createlike_sys_path(post.id,session[:user_id]),:class => "btn btn-primary", :method => :get 
         -else
           %td= button_to "Unlike" , destroylike_sys_path(post.id,session[:user_id]),:class => "btn btn-primary", :method => :get
-        -#%td= render 'modal' ,count:post.likecount ,users_name:post.like_user,post_id:post.id
-        %td.button.btn.btn-light{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", :type => "button" ,class: "buttonshowlikename" ,data:post.like_user} #{post.likecount}
+        -#%td= render 'modal' ,count:post.likecount ,users_name:post.like_user,post_id:post.id 
+        %td.button.btn.btn-light{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", :type => "button" ,class: "buttonshowlikename" ,data:post.like_user.join(',')} #{post.likecount}
 
 
 .modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :tabindex => "-1" ,id:"exampleModal"}
@@ -33,6 +33,8 @@
       .modal-body
         -#users_name.each do |user_name|
         -#%p= link_to "#{user_name}" , profile_sys_path(user_name)
+        %p.likenamerow
+
       .modal-footer
 
 
@@ -40,7 +42,25 @@
 
 =link_to 'New post' ,new_post_sys_path
 
+:javascript
+  $(".buttonshowlikename").click(function(){
+    $(".likenamerow").text("")
+    name = $(this).attr("data")
+    name_use = []
+    name_use = name.split(",")
+    console.log(name_use)
+    for (let i = 0; i < name_use.length; i++) {
+      var temp = document.createElement("a")
+      temp.href= "/profile/"+name_use[i]
+      temp.innerHTML = name_use[i]
+      $(".likenamerow").append(temp)
+      $(".likenamerow").append("<br>")
+    } 
+  })
 
+
+
+  
 
 
 
