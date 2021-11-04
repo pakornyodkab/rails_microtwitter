@@ -18,7 +18,8 @@
         -else
           %td= button_to "Unlike" , destroylike_sys_path(post.id,session[:user_id]),:class => "btn btn-primary", :method => :get
         -#%td= render 'modal' ,count:post.likecount ,users_name:post.like_user,post_id:post.id
-        %td.button.btn.btn-light{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", :type => "button" ,class: "buttonshowlikename" ,data:post.like_user.join(',')} #{post.likecount}
+        %td
+          %button.btn.btn-light{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", :type => "button" ,class: "buttonshowlikename" ,data:post.like_user.join(',')} #{post.likecount}
 
 
 
