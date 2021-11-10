@@ -1,13 +1,13 @@
 %h1 Listing posts
 
-%table
+%table{id:"posttable",class:'table table-striped table-sm'}
   %thead
     %tr
       %th Msg
       %th User
-      %th
-      %th
-      %th
+      %th showbutton
+      %th editbutton
+      %th destroybutton
 
   %tbody
     - @posts.each do |post|
@@ -21,3 +21,8 @@
 %br
 
 = link_to 'New Post', new_post_path
+
+:javascript
+  $(document).ready(function(){
+    $('#posttable').DataTable();
+  });

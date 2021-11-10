@@ -1,13 +1,13 @@
 %h1 Listing likes
 
-%table
+%table{id:"liketable",class:'table table-striped table-sm'}
   %thead
     %tr
       %th User_email
       %th Post_msg
-      %th
-      %th
-      %th
+      %th showbutton
+      %th editbutton
+      %th destroybutton
 
   %tbody
     - @likes.each do |like|
@@ -21,3 +21,9 @@
 %br
 
 = link_to 'New Like', new_like_path
+
+:javascript
+  $(document).ready(function(){
+    $('#liketable').DataTable();
+  });
+

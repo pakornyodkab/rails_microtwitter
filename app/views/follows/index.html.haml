@@ -1,13 +1,13 @@
 %h1 Listing follows
 
-%table
+%table{id:"followtable",class:'table table-striped table-sm'}
   %thead
     %tr
       %th Follower_id
       %th Followee_id
-      %th
-      %th
-      %th
+      %th showbutton
+      %th editbutton
+      %th destroybutton
 
   %tbody
     - @follows.each do |follow|
@@ -21,3 +21,7 @@
 %br
 
 = link_to 'New Follow', new_follow_path
+:javascript
+  $(document).ready(function(){
+    $('#followtable').DataTable();
+  });

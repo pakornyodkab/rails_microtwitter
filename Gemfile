@@ -61,7 +61,10 @@ gem 'haml'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'rexml'
+gem 'jquery-datatables-rails'
 
 
 
 
+
+gem "jquery-datatables", "~> 1.10"
